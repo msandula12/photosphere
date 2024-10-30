@@ -18,19 +18,21 @@ import {
  */
 export const createTable = pgTableCreator((name) => `photosphere_${name}`);
 
-export const posts = createTable(
-  "post",
+export const images = createTable(
+  "image",
   {
-    id: serial("id").primaryKey(),
-    name: varchar("name", { length: 256 }),
     createdAt: timestamp("created_at", { withTimezone: true })
       .default(sql`CURRENT_TIMESTAMP`)
       .notNull(),
+    id: serial("id").primaryKey(),
+    name: varchar("name", { length: 256 }).notNull(),
     updatedAt: timestamp("updated_at", { withTimezone: true }).$onUpdate(
-      () => new Date()
+      () => new Date(),
     ),
+    url: varchar("url", { length: 1024 }).notNull(),
+    userId: varchar("userId", { length: 256 }).notNull(),
   },
   (example) => ({
     nameIndex: index("name_idx").on(example.name),
-  })
+  }),
 );
