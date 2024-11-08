@@ -1,6 +1,20 @@
 "use client";
 
 import { useImagesStore } from "~/hooks/use-images-store";
+import type { Image as ImageType } from "~/types";
+
+async function downloadImage({ name, url }: ImageType) {
+  const image = await fetch(url);
+  const imageBlog = await image.blob();
+  const imageURL = URL.createObjectURL(imageBlog);
+
+  const link = document.createElement("a");
+  link.href = imageURL;
+  link.download = name;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
 
 function DownloadSvg() {
   return (
@@ -22,15 +36,25 @@ function DownloadSvg() {
 }
 
 export default function DownloadButton() {
-  const { selectedImages } = useImagesStore();
+  const { clearSelectedImages, selectedImages } = useImagesStore();
 
   const hasSelectedImages = selectedImages.length > 0;
+
+  async function downloadImages() {
+    for (const selectedImage of selectedImages) {
+      await downloadImage(selectedImage);
+    }
+    clearSelectedImages();
+
+    // TODO: Delete images from database
+  }
 
   return (
     <button
       aria-disabled={!hasSelectedImages}
       disabled={!hasSelectedImages}
       className="flex items-center gap-2 rounded-lg bg-violet-100 px-4 py-2 font-semibold text-violet-800 transition-colors duration-200 hover:bg-violet-200 disabled:cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-400"
+      onClick={downloadImages}
     >
       <DownloadSvg /> Download {selectedImages.length} image
       {selectedImages.length === 1 ? "" : "s"}
