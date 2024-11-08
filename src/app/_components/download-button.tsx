@@ -1,3 +1,7 @@
+"use client";
+
+import { useImagesStore } from "~/hooks/use-images-store";
+
 function DownloadSvg() {
   return (
     <svg
@@ -18,9 +22,18 @@ function DownloadSvg() {
 }
 
 export default function DownloadButton() {
+  const { selectedImages } = useImagesStore();
+
+  const hasSelectedImages = selectedImages.length > 0;
+
   return (
-    <button className="flex items-center gap-2 rounded-lg bg-violet-100 px-4 py-2 font-semibold text-violet-800 transition-colors duration-200 hover:bg-violet-200 disabled:cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-400">
-      <DownloadSvg /> Download
+    <button
+      aria-disabled={!hasSelectedImages}
+      disabled={!hasSelectedImages}
+      className="flex items-center gap-2 rounded-lg bg-violet-100 px-4 py-2 font-semibold text-violet-800 transition-colors duration-200 hover:bg-violet-200 disabled:cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-400"
+    >
+      <DownloadSvg /> Download {selectedImages.length} image
+      {selectedImages.length === 1 ? "" : "s"}
     </button>
   );
 }

@@ -2,27 +2,12 @@
 
 import { clsx } from "clsx";
 import Image from "next/image";
-import { useState } from "react";
 
-type Image = {
-  id: number;
-  name: string;
-  url: string;
-};
+import { useImagesStore } from "~/hooks/use-images-store";
+import type { Image as ImageType } from "~/types";
 
-export default function ImagesGrid({ images }: { images: Image[] }) {
-  const [selectedImages, setSelectedImages] = useState<Image[]>([]);
-
-  function toggleImageSelection(image: Image) {
-    setSelectedImages((prev) => {
-      const isImageSelected = prev.some((img) => img.id === image.id);
-      if (isImageSelected) {
-        return prev.filter((img) => img.id !== image.id);
-      } else {
-        return [...prev, image];
-      }
-    });
-  }
+export default function ImagesGrid({ images }: { images: ImageType[] }) {
+  const { selectedImages, toggleSelectedImage } = useImagesStore();
 
   return (
     <>
@@ -42,7 +27,7 @@ export default function ImagesGrid({ images }: { images: Image[] }) {
           <div
             key={image.id}
             className={imageClassNames}
-            onClick={() => toggleImageSelection(image)}
+            onClick={() => toggleSelectedImage(image)}
           >
             <div className="relative h-full w-full bg-black">
               <Image
