@@ -13,15 +13,28 @@ type Image = {
 export default function ImagesGrid({ images }: { images: Image[] }) {
   const [selectedImages, setSelectedImages] = useState<Image[]>([]);
 
+  function toggleImageSelection(image: Image) {
+    setSelectedImages((prev) => {
+      const isImageSelected = prev.some((img) => img.id === image.id);
+      if (isImageSelected) {
+        return prev.filter((img) => img.id !== image.id);
+      } else {
+        return [...prev, image];
+      }
+    });
+  }
+
   return (
     <>
       {images.map((image) => {
+        const isImageSelected = selectedImages.some(
+          (selectedImage) => selectedImage.id === image.id,
+        );
         const imageClassNames = clsx(
-          "group relative flex aspect-square cursor-pointer items-center justify-center overflow-hidden rounded-lg border-8 border-white shadow-md transition-all duration-300 ease-in-out hover:scale-105",
+          "group relative flex aspect-square cursor-pointer items-center justify-center overflow-hidden rounded-lg border-8 shadow-md transition-all duration-300 ease-in-out hover:scale-105",
           {
-            "border-orange-600": selectedImages.some(
-              (selectedImage) => selectedImage.id === image.id,
-            ),
+            "border-orange-600": isImageSelected,
+            "border-white": !isImageSelected,
           },
         );
 
@@ -29,16 +42,7 @@ export default function ImagesGrid({ images }: { images: Image[] }) {
           <div
             key={image.id}
             className={imageClassNames}
-            onClick={() => {
-              setSelectedImages((prev) => {
-                const isImageSelected = prev.some((img) => img.id === image.id);
-                if (isImageSelected) {
-                  return prev.filter((img) => img.id !== image.id);
-                } else {
-                  return [...prev, image];
-                }
-              });
-            }}
+            onClick={() => toggleImageSelection(image)}
           >
             <div className="relative h-full w-full bg-black">
               <Image
