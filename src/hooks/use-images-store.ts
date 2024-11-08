@@ -6,7 +6,10 @@ import type { Image as ImageType } from "~/types";
 
 interface ImagesState {
   clearSelectedImages: () => void;
+  images: ImageType[];
+  selectAllImages: () => void;
   selectedImages: ImageType[];
+  setImages: (images: ImageType[]) => void;
   toggleSelectedImage: (image: ImageType) => void;
 }
 
@@ -15,7 +18,11 @@ export const useImagesStore = create<ImagesState>()(
     persist(
       (set) => ({
         clearSelectedImages: () => set(() => ({ selectedImages: [] })),
+        images: [],
+        selectAllImages: () =>
+          set((state) => ({ selectedImages: state.images })),
         selectedImages: [],
+        setImages: (images) => set(() => ({ images })),
         toggleSelectedImage: (image) =>
           set((state) => {
             const isImageSelected = state.selectedImages.some(

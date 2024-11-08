@@ -2,12 +2,17 @@
 
 import { clsx } from "clsx";
 import Image from "next/image";
+import { useEffect } from "react";
 
 import { useImagesStore } from "~/hooks/use-images-store";
 import type { Image as ImageType } from "~/types";
 
 export default function ImagesGrid({ images }: { images: ImageType[] }) {
-  const { selectedImages, toggleSelectedImage } = useImagesStore();
+  const { selectedImages, setImages, toggleSelectedImage } = useImagesStore();
+
+  useEffect(() => {
+    setImages(images);
+  }, [images, setImages]);
 
   return (
     <>

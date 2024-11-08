@@ -1,6 +1,7 @@
 import { clsx } from "clsx";
 
 import ImagesGrid from "~/app/_components/images-grid";
+import SelectAllImages from "~/app/_components/select-all-images";
 import { getMyImages } from "~/server/db/queries";
 
 export const dynamic = "force-dynamic";
@@ -37,9 +38,10 @@ export default async function ImagesContainer() {
 
   return (
     <div className="container mx-auto">
+      {hasImages && <SelectAllImages />}
       <div className={imagesGridClassNames}>
         {!hasImages && <ImagePlaceholderSvg />}
-        <ImagesGrid images={images} />
+        {hasImages && <ImagesGrid images={images} />}
       </div>
     </div>
   );
