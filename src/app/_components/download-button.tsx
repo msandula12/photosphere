@@ -19,7 +19,7 @@ function DownloadSvg() {
 
 export default function DownloadButton() {
   return (
-    <button className="flex items-center gap-2 rounded-lg bg-violet-100 px-4 py-2 font-semibold text-violet-800 transition-colors duration-200 hover:bg-violet-200">
+    <button className="flex items-center gap-2 rounded-lg bg-violet-100 px-4 py-2 font-semibold text-violet-800 transition-colors duration-200 hover:bg-violet-200 disabled:cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-400">
       <DownloadSvg /> Download
     </button>
   );
