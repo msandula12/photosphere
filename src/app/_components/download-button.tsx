@@ -1,5 +1,8 @@
 "use client";
 
+import { toast } from "sonner";
+
+import LoadingSpinner from "~/components/ui/loading-spinner";
 import { useImagesStore } from "~/hooks/use-images-store";
 import type { Image as ImageType } from "~/types";
 
@@ -41,12 +44,30 @@ export default function DownloadButton() {
   const hasSelectedImages = selectedImages.length > 0;
 
   async function downloadImages() {
-    for (const selectedImage of selectedImages) {
-      await downloadImage(selectedImage);
+    try {
+      toast(
+        <div className="flex items-center gap-2">
+          <LoadingSpinner />
+          <span className="text-lg">
+            Downloading {selectedImages.length} image
+            {selectedImages.length === 1 ? "" : "s"}
+          </span>
+        </div>,
+        {
+          duration: 100000, // 100 seconds
+          id: "download-begin",
+        },
+      );
+      for (const selectedImage of selectedImages) {
+        await downloadImage(selectedImage);
+      }
+      clearSelectedImages();
+      // TODO: Delete images from database
+    } catch (error) {
+      console.error(error);
+    } finally {
+      toast.dismiss("download-begin");
     }
-    clearSelectedImages();
-
-    // TODO: Delete images from database
   }
 
   return (
