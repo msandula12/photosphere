@@ -4,7 +4,10 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 import LoadingSpinner from "~/components/ui/loading-spinner";
+import { useImagesStore } from "~/hooks/use-images-store";
 import { useUploadThing } from "~/utils/uploadthing";
+
+const MAX_IMAGES = 100;
 
 type Input = Parameters<typeof useUploadThing>;
 
@@ -48,7 +51,10 @@ function UploadSvg() {
 }
 
 export default function UploadButton() {
+  const { images } = useImagesStore();
   const router = useRouter();
+
+  const hasMaxImages = images.length === MAX_IMAGES;
 
   const { inputProps } = useUploadThingInputProps("imageUploader", {
     onClientUploadComplete: () => {
@@ -77,19 +83,19 @@ export default function UploadButton() {
   });
 
   return (
-    <div className="rounded-lg bg-orange-100 px-4 py-2 font-semibold text-orange-800 transition-colors duration-200 hover:bg-orange-200">
-      <label
-        className="flex cursor-pointer items-center gap-2"
-        htmlFor="upload-button"
-      >
-        <UploadSvg /> Upload
-      </label>
+    <label
+      className="flex cursor-pointer items-center gap-2 rounded-lg bg-orange-100 px-4 py-2 font-semibold text-orange-800 transition-colors duration-200 hover:bg-orange-200 has-[:disabled]:cursor-not-allowed has-[:disabled]:bg-gray-300 has-[:disabled]:text-gray-400"
+      htmlFor="upload-button"
+    >
+      <UploadSvg /> Upload
       <input
+        aria-disabled={hasMaxImages}
         className="sr-only"
+        disabled={hasMaxImages}
         id="upload-button"
         type="file"
         {...inputProps}
       />
-    </div>
+    </label>
   );
 }
