@@ -17,7 +17,7 @@ function SunSvg() {
 export function TopNav() {
   return (
     <nav className="sticky top-0 z-10 flex w-full items-center justify-between bg-orange-200 shadow-md">
-      <div className="container mx-auto flex items-center justify-between px-4 py-3">
+      <div className="mx-auto flex flex-1 items-center justify-between px-4 py-3">
         <Link
           className="flex items-center gap-1 text-2xl font-bold text-orange-800"
           href="/"
