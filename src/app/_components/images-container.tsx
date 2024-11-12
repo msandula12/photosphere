@@ -29,15 +29,14 @@ export default async function ImagesContainer() {
   const images = await getMyImages();
   const hasImages = images.length > 0;
 
-  const imagesGridClassNames = clsx(
-    "grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4",
-    {
-      "items-center justify-center": !hasImages,
-    },
-  );
+  const imagesGridClassNames = clsx({
+    "flex items-center justify-center": !hasImages,
+    "grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4":
+      hasImages,
+  });
 
   return (
-    <div className="container mx-auto">
+    <div className="container mx-auto h-full">
       {hasImages && <SelectAllImages />}
       <div className={imagesGridClassNames}>
         {!hasImages && <ImagePlaceholderSvg />}
