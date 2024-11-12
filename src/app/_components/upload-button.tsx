@@ -59,8 +59,20 @@ export default function UploadButton() {
   const { inputProps } = useUploadThingInputProps("imageUploader", {
     onClientUploadComplete: () => {
       toast.dismiss("upload-begin");
-      toast(<span className="text-lg">Uploading complete!</span>);
+      toast.success(<span className="text-lg">Uploading complete!</span>);
       router.refresh();
+    },
+    onBeforeUploadBegin: (files) => {
+      const numberOfUploadsRemaining = MAX_IMAGES - images.length;
+      console.log("numberOfUploadsRemaining: ", numberOfUploadsRemaining);
+      if (files.length > numberOfUploadsRemaining) {
+        toast.warning(
+          <span className="text-lg">
+            Maximum of {MAX_IMAGES} photos reached
+          </span>,
+        );
+      }
+      return files.slice(0, numberOfUploadsRemaining);
     },
     onUploadBegin: () => {
       toast(
