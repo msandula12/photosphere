@@ -25,7 +25,7 @@ function ImagePlaceholderSvg() {
   );
 }
 
-export default async function ImagesContainer() {
+export default async function ImagesContainer({ key }: { key: string }) {
   const images = await getMyImages();
   const hasImages = images.length > 0;
 
@@ -36,7 +36,7 @@ export default async function ImagesContainer() {
   });
 
   return (
-    <div className="container mx-auto h-full">
+    <div className="container mx-auto h-full" key={key}>
       {hasImages && <SelectAllImages />}
       <div className={imagesGridClassNames}>
         {!hasImages && <ImagePlaceholderSvg />}

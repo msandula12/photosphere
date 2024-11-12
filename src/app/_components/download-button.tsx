@@ -1,10 +1,26 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 import LoadingSpinner from "~/components/ui/loading-spinner";
 import { useImagesStore } from "~/hooks/use-images-store";
 import type { Image as ImageType } from "~/types";
+
+async function deleteImageFromDb(imageId: number) {
+  try {
+    const response = await fetch(`/api/img/${imageId}`, {
+      method: "DELETE",
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to delete image");
+    }
+  } catch (error) {
+    console.error("Error deleting image:", error);
+    toast.error(`Failed to delete image with ID ${imageId}`);
+  }
+}
 
 async function downloadImage({ name, url }: ImageType) {
   const image = await fetch(url);
@@ -40,6 +56,7 @@ function DownloadSvg() {
 
 export default function DownloadButton() {
   const { clearSelectedImages, selectedImages } = useImagesStore();
+  const router = useRouter();
 
   const hasSelectedImages = selectedImages.length > 0;
 
@@ -60,9 +77,10 @@ export default function DownloadButton() {
       );
       for (const selectedImage of selectedImages) {
         await downloadImage(selectedImage);
+        await deleteImageFromDb(selectedImage.id);
       }
       clearSelectedImages();
-      // TODO: Delete images from database
+      router.refresh();
     } catch (error) {
       console.error(error);
     } finally {
