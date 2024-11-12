@@ -57,13 +57,13 @@ export default {
         },
       },
     },
-    screens: {
-      sm: "580px",
-      md: "768px",
-      lg: "1024px",
-      xl: "1280px",
-      "2xl": "1536px",
-    },
+    // screens: {
+    //   sm: "580px",
+    //   md: "768px",
+    //   lg: "1024px",
+    //   xl: "1280px",
+    //   "2xl": "1536px",
+    // },
   },
   plugins: [require("tailwindcss-animate")],
 } satisfies Config;

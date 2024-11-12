@@ -92,7 +92,7 @@ export default function DownloadButton() {
     <button
       aria-disabled={!hasSelectedImages}
       disabled={!hasSelectedImages}
-      className="flex w-full items-center justify-center gap-2 rounded-lg bg-violet-100 px-4 py-2 font-semibold text-violet-800 transition-colors duration-200 hover:bg-violet-200 disabled:cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-400 sm:w-auto"
+      className="flex w-full flex-1 items-center justify-center gap-2 rounded-lg bg-violet-100 px-4 py-2 font-semibold text-violet-800 transition-colors duration-200 hover:bg-violet-200 disabled:cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-400 sm:w-auto"
       onClick={downloadImages}
     >
       <DownloadSvg /> Download {selectedImages.length} image

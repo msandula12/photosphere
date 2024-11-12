@@ -96,7 +96,7 @@ export default function UploadButton() {
 
   return (
     <label
-      className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg bg-orange-100 px-4 py-2 font-semibold text-orange-800 transition-colors duration-200 hover:bg-orange-200 has-[:disabled]:cursor-not-allowed has-[:disabled]:bg-gray-300 has-[:disabled]:text-gray-400 sm:w-auto"
+      className="flex w-full flex-1 cursor-pointer items-center justify-center gap-2 rounded-lg bg-orange-100 px-4 py-2 font-semibold text-orange-800 transition-colors duration-200 hover:bg-orange-200 has-[:disabled]:cursor-not-allowed has-[:disabled]:bg-gray-300 has-[:disabled]:text-gray-400 sm:w-auto"
       htmlFor="upload-button"
     >
       <UploadSvg /> Upload
