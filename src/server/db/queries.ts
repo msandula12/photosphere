@@ -16,19 +16,6 @@ export async function deleteImage(id: number) {
     .where(and(eq(images.id, id), eq(images.userId, user.userId)));
 }
 
-export async function getMyImages() {
-  const user = await auth();
-
-  if (!user.userId) throw new Error("Unauthorized");
-
-  const myImages = await db.query.images.findMany({
-    orderBy: (model, { desc }) => desc(model.id),
-    where: (model, { eq }) => eq(model.userId, user.userId),
-  });
-
-  return myImages;
-}
-
 export async function getImage(id: number) {
   const user = await auth();
 
@@ -42,4 +29,17 @@ export async function getImage(id: number) {
   if (image.userId !== user.userId) throw new Error("Unauthorized");
 
   return image;
+}
+
+export async function getMyImages() {
+  const user = await auth();
+
+  if (!user.userId) throw new Error("Unauthorized");
+
+  const myImages = await db.query.images.findMany({
+    orderBy: (model, { desc }) => desc(model.id),
+    where: (model, { eq }) => eq(model.userId, user.userId),
+  });
+
+  return myImages;
 }
