@@ -1,7 +1,6 @@
 "use client";
 
 import { clsx } from "clsx";
-import Image from "next/image";
 import { useEffect } from "react";
 
 import { useImagesStore } from "~/hooks/use-images-store";
@@ -34,11 +33,11 @@ export function ImagesGrid({ images }: { images: ImageType[] }) {
             className={imageClassNames}
             onClick={() => toggleSelectedImage(image)}
           >
-            <div className="relative h-full w-full bg-black">
-              <Image
+            <div className="relative flex h-full w-full items-center justify-center bg-black">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
                 alt={image.name}
                 className="object-contain"
-                fill
                 sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, (max-width: 1024px) 25vw, 16vw"
                 src={image.url}
               />
