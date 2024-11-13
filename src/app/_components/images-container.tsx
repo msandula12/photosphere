@@ -1,7 +1,7 @@
 import { clsx } from "clsx";
 
-import ImagesGrid from "~/app/_components/images-grid";
-import SelectAllImages from "~/app/_components/select-all-images";
+import { ImagesGrid } from "~/app/_components/images-grid";
+import { SelectAllImages } from "~/app/_components/select-all-images";
 import { getMyImages } from "~/server/db/queries";
 
 export const dynamic = "force-dynamic";
@@ -25,7 +25,7 @@ function ImagePlaceholderSvg() {
   );
 }
 
-export default async function ImagesContainer({ key }: { key: string }) {
+export async function ImagesContainer() {
   const images = await getMyImages();
   const hasImages = images.length > 0;
 
@@ -36,7 +36,7 @@ export default async function ImagesContainer({ key }: { key: string }) {
   });
 
   return (
-    <div className="container mx-auto h-full" key={key}>
+    <div className="container mx-auto h-full">
       {hasImages && <SelectAllImages />}
       <div className={imagesGridClassNames}>
         {!hasImages && <ImagePlaceholderSvg />}

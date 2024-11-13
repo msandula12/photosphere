@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
-import LoadingSpinner from "~/components/ui/loading-spinner";
+import { LoadingSpinner } from "~/components/ui/loading-spinner";
 import { useImagesStore } from "~/hooks/use-images-store";
 import type { Image as ImageType } from "~/types";
 
@@ -54,7 +54,7 @@ function DownloadSvg() {
   );
 }
 
-export default function DownloadButton() {
+export function DownloadButton() {
   const { clearSelectedImages, selectedImages } = useImagesStore();
   const router = useRouter();
 

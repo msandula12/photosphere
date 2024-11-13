@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
-import LoadingSpinner from "~/components/ui/loading-spinner";
+import { LoadingSpinner } from "~/components/ui/loading-spinner";
 import { useImagesStore } from "~/hooks/use-images-store";
 
 async function deleteImageFromDb(imageId: number) {
@@ -40,7 +40,7 @@ function DeleteSvg() {
   );
 }
 
-export default function DeleteButton() {
+export function DeleteButton() {
   const { clearSelectedImages, selectedImages } = useImagesStore();
   const router = useRouter();
 

@@ -1,7 +1,7 @@
 import { SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
 
-import ImagesContainer from "~/app/_components/images-container";
-import ImagesToolbar from "~/app/_components/images-toolbar";
+import { ImagesContainer } from "~/app/_components/images-container";
+import { ImagesToolbar } from "~/app/_components/images-toolbar";
 
 export default async function HomePage() {
   return (

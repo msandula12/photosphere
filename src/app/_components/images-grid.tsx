@@ -7,7 +7,7 @@ import { useEffect } from "react";
 import { useImagesStore } from "~/hooks/use-images-store";
 import type { Image as ImageType } from "~/types";
 
-export default function ImagesGrid({ images }: { images: ImageType[] }) {
+export function ImagesGrid({ images }: { images: ImageType[] }) {
   const { selectedImages, setImages, toggleSelectedImage } = useImagesStore();
 
   useEffect(() => {

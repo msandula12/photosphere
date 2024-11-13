@@ -2,7 +2,7 @@
 
 import { useImagesStore } from "~/hooks/use-images-store";
 
-export default function SelectAllImages() {
+export function SelectAllImages() {
   const { clearSelectedImages, images, selectAllImages, selectedImages } =
     useImagesStore();
 

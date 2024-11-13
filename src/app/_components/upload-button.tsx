@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
-import LoadingSpinner from "~/components/ui/loading-spinner";
+import { LoadingSpinner } from "~/components/ui/loading-spinner";
 import { useImagesStore } from "~/hooks/use-images-store";
 import { useUploadThing } from "~/utils/uploadthing";
 
@@ -11,7 +11,7 @@ const MAX_IMAGES = 100;
 
 type Input = Parameters<typeof useUploadThing>;
 
-const useUploadThingInputProps = (...args: Input) => {
+function useUploadThingInputProps(...args: Input) {
   const $ut = useUploadThing(...args);
 
   const onChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -29,7 +29,7 @@ const useUploadThingInputProps = (...args: Input) => {
     },
     isUploading: $ut.isUploading,
   };
-};
+}
 
 function UploadSvg() {
   return (
@@ -50,7 +50,7 @@ function UploadSvg() {
   );
 }
 
-export default function UploadButton() {
+export function UploadButton() {
   const { images } = useImagesStore();
   const router = useRouter();
 
