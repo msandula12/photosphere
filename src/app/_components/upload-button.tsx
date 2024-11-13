@@ -64,7 +64,6 @@ export function UploadButton() {
     },
     onBeforeUploadBegin: (files) => {
       const numberOfUploadsRemaining = MAX_IMAGES - images.length;
-      console.log("numberOfUploadsRemaining: ", numberOfUploadsRemaining);
       if (files.length > numberOfUploadsRemaining) {
         toast.warning(
           <span className="text-lg">
