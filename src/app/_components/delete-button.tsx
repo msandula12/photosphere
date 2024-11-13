@@ -52,8 +52,7 @@ export function DeleteButton() {
       toast(
         <Toast
           icon={<LoadingSpinner />}
-          text={`Deleting ${selectedImages.length} image
-            ${selectedImages.length === 1 ? "" : "s"}`}
+          text={`Deleting ${selectedImages.length} image${selectedImages.length === 1 ? "" : "s"}`}
         />,
         {
           duration: 100000, // 100 seconds

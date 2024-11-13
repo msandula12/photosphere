@@ -66,8 +66,7 @@ export function DownloadButton() {
       toast(
         <Toast
           icon={<LoadingSpinner />}
-          text={`Downloading ${selectedImages.length} image
-            ${selectedImages.length === 1 ? "" : "s"}`}
+          text={`Downloading ${selectedImages.length} image${selectedImages.length === 1 ? "" : "s"}`}
         />,
         {
           duration: 100000, // 100 seconds
