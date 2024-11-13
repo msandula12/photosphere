@@ -11,6 +11,9 @@ const coreConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  images: {
+    remotePatterns: [{ hostname: "utfs.io" }],
+  },
   typescript: {
     ignoreBuildErrors: true,
   },
