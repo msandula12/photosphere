@@ -17,7 +17,10 @@ export function SelectAllImages() {
   }
 
   return (
-    <label className="mb-4 flex items-center gap-2" htmlFor="select-all-images">
+    <label
+      className="mb-4 inline-flex cursor-pointer items-center gap-2"
+      htmlFor="select-all-images"
+    >
       <input
         id="select-all-images"
         checked={areAllImagesSelected}
