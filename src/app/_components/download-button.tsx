@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 import { LoadingSpinner } from "~/components/ui/loading-spinner";
+import { Toast } from "~/components/ui/toast";
 import { useImagesStore } from "~/hooks/use-images-store";
 import type { Image as ImageType } from "~/types";
 
@@ -18,7 +19,7 @@ async function deleteImageFromDb(imageId: number) {
     }
   } catch (error) {
     console.error("Error deleting image:", error);
-    toast.error(`Failed to delete image with ID ${imageId}`);
+    toast.error(<Toast text={`Failed to delete image with ID ${imageId}`} />);
   }
 }
 
@@ -63,13 +64,11 @@ export function DownloadButton() {
   async function downloadImages() {
     try {
       toast(
-        <div className="flex items-center gap-2">
-          <LoadingSpinner />
-          <span className="text-lg">
-            Downloading {selectedImages.length} image
-            {selectedImages.length === 1 ? "" : "s"}
-          </span>
-        </div>,
+        <Toast
+          icon={<LoadingSpinner />}
+          text={`Downloading ${selectedImages.length} image
+            ${selectedImages.length === 1 ? "" : "s"}`}
+        />,
         {
           duration: 100000, // 100 seconds
           id: "download-begin",

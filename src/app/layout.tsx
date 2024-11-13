@@ -9,7 +9,7 @@ import { extractRouterConfig } from "uploadthing/server";
 
 import { TopNav } from "~/app/_components/top-nav";
 import { ourFileRouter } from "~/app/api/uploadthing/core";
-import { Toaster } from "~/components/ui/sonner";
+import { Toaster } from "~/components/ui/toaster";
 
 export const metadata: Metadata = {
   title: "PhotoSphere",

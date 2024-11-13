@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 import { LoadingSpinner } from "~/components/ui/loading-spinner";
+import { Toast } from "~/components/ui/toast";
 import { useImagesStore } from "~/hooks/use-images-store";
 import { useUploadThing } from "~/utils/uploadthing";
 
@@ -59,37 +60,27 @@ export function UploadButton() {
   const { inputProps } = useUploadThingInputProps("imageUploader", {
     onClientUploadComplete: () => {
       toast.dismiss("upload-begin");
-      toast.success(<span className="text-lg">Uploading complete!</span>);
+      toast.success(<Toast text="Uploading complete!" />);
       router.refresh();
     },
     onBeforeUploadBegin: (files) => {
       const numberOfUploadsRemaining = MAX_IMAGES - images.length;
       if (files.length > numberOfUploadsRemaining) {
         toast.warning(
-          <span className="text-lg">
-            Maximum of {MAX_IMAGES} photos reached
-          </span>,
+          <Toast text={`Maximum of ${MAX_IMAGES} photos reached`} />,
         );
       }
       return files.slice(0, numberOfUploadsRemaining);
     },
     onUploadBegin: () => {
-      toast(
-        <div className="flex items-center gap-2">
-          <LoadingSpinner />
-          <span className="text-lg">Uploading...</span>
-        </div>,
-        {
-          duration: 100000, // 100 seconds
-          id: "upload-begin",
-        },
-      );
+      toast(<Toast icon={<LoadingSpinner />} text="Uploading.." />, {
+        duration: 100000, // 100 seconds
+        id: "upload-begin",
+      });
     },
     onUploadError: () => {
       toast.dismiss("upload-begin");
-      toast.error(
-        <span className="text-lg">Upload failed. Try again later.</span>,
-      );
+      toast.error(<Toast text="Upload failed. Try again later" />);
     },
   });
 

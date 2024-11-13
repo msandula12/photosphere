@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 import { LoadingSpinner } from "~/components/ui/loading-spinner";
+import { Toast } from "~/components/ui/toast";
 import { useImagesStore } from "~/hooks/use-images-store";
 
 async function deleteImageFromDb(imageId: number) {
@@ -49,13 +50,11 @@ export function DeleteButton() {
   async function deleteImages() {
     try {
       toast(
-        <div className="flex items-center gap-2">
-          <LoadingSpinner />
-          <span className="text-lg">
-            Deleting {selectedImages.length} image
-            {selectedImages.length === 1 ? "" : "s"}
-          </span>
-        </div>,
+        <Toast
+          icon={<LoadingSpinner />}
+          text={`Deleting ${selectedImages.length} image
+            ${selectedImages.length === 1 ? "" : "s"}`}
+        />,
         {
           duration: 100000, // 100 seconds
           id: "delete-begin",
