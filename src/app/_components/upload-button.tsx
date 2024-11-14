@@ -60,27 +60,29 @@ export function UploadButton() {
   const { inputProps } = useUploadThingInputProps("imageUploader", {
     onClientUploadComplete: () => {
       toast.dismiss("upload-begin");
-      toast.success(<Toast text="Uploading complete!" />);
+      toast.success(<Toast>Uploading complete!</Toast>);
       router.refresh();
     },
     onBeforeUploadBegin: (files) => {
       const numberOfUploadsRemaining = MAX_IMAGES - images.length;
       if (files.length > numberOfUploadsRemaining) {
-        toast.warning(
-          <Toast text={`Maximum of ${MAX_IMAGES} photos reached`} />,
-        );
+        toast.warning(<Toast>Maximum of {MAX_IMAGES} photos reached</Toast>);
       }
       return files.slice(0, numberOfUploadsRemaining);
     },
     onUploadBegin: () => {
-      toast(<Toast icon={<LoadingSpinner />} text="Uploading.." />, {
+      toast(<Toast icon={<LoadingSpinner />}>Uploading...</Toast>, {
         duration: 100000, // 100 seconds
         id: "upload-begin",
       });
     },
     onUploadError: () => {
       toast.dismiss("upload-begin");
-      toast.error(<Toast text="Upload failed. Try again later" />);
+      toast.error(
+        <Toast>
+          Upload failed. One or more of your images could be too large.
+        </Toast>,
+      );
     },
   });
 

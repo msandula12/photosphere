@@ -6,6 +6,7 @@ import { toast } from "sonner";
 import { LoadingSpinner } from "~/components/ui/loading-spinner";
 import { Toast } from "~/components/ui/toast";
 import { useImagesStore } from "~/hooks/use-images-store";
+import { pluralize } from "~/utils";
 
 async function deleteImageFromDb(imageId: number) {
   try {
@@ -50,10 +51,10 @@ export function DeleteButton() {
   async function deleteImages() {
     try {
       toast(
-        <Toast
-          icon={<LoadingSpinner />}
-          text={`Deleting ${selectedImages.length} image${selectedImages.length === 1 ? "" : "s"}`}
-        />,
+        <Toast icon={<LoadingSpinner />}>
+          Deleting {selectedImages.length}{" "}
+          {pluralize("image", selectedImages.length)}
+        </Toast>,
         {
           duration: 100000, // 100 seconds
           id: "delete-begin",
@@ -78,8 +79,8 @@ export function DeleteButton() {
       className="flex w-full flex-1 items-center justify-center gap-2 rounded-lg bg-red-100 px-4 py-2 font-semibold text-red-800 transition-colors duration-200 hover:bg-violet-200 disabled:cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-400 sm:w-auto"
       onClick={deleteImages}
     >
-      <DeleteSvg /> Delete {selectedImages.length} image
-      {selectedImages.length === 1 ? "" : "s"}
+      <DeleteSvg /> Delete {selectedImages.length}{" "}
+      {pluralize("image", selectedImages.length)}
     </button>
   );
 }

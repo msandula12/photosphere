@@ -7,6 +7,7 @@ import { LoadingSpinner } from "~/components/ui/loading-spinner";
 import { Toast } from "~/components/ui/toast";
 import { useImagesStore } from "~/hooks/use-images-store";
 import type { Image as ImageType } from "~/types";
+import { pluralize } from "~/utils";
 
 async function deleteImageFromDb(imageId: number) {
   try {
@@ -19,7 +20,7 @@ async function deleteImageFromDb(imageId: number) {
     }
   } catch (error) {
     console.error("Error deleting image:", error);
-    toast.error(<Toast text={`Failed to delete image with ID ${imageId}`} />);
+    toast.error(<Toast>Failed to delete image with ID {imageId}</Toast>);
   }
 }
 
@@ -64,10 +65,10 @@ export function DownloadButton() {
   async function downloadImages() {
     try {
       toast(
-        <Toast
-          icon={<LoadingSpinner />}
-          text={`Downloading ${selectedImages.length} image${selectedImages.length === 1 ? "" : "s"}`}
-        />,
+        <Toast icon={<LoadingSpinner />}>
+          Downloading {selectedImages.length}{" "}
+          {pluralize("image", selectedImages.length)}
+        </Toast>,
         {
           duration: 100000, // 100 seconds
           id: "download-begin",
@@ -93,8 +94,8 @@ export function DownloadButton() {
       className="flex w-full flex-1 items-center justify-center gap-2 rounded-lg bg-violet-100 px-4 py-2 font-semibold text-violet-800 transition-colors duration-200 hover:bg-violet-200 disabled:cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-400 sm:w-auto"
       onClick={downloadImages}
     >
-      <DownloadSvg /> Download {selectedImages.length} image
-      {selectedImages.length === 1 ? "" : "s"}
+      <DownloadSvg /> Download {selectedImages.length}{" "}
+      {pluralize("image", selectedImages.length)}
     </button>
   );
 }

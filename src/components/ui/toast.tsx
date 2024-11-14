@@ -1,13 +1,13 @@
 type Props = {
+  children: React.ReactNode;
   icon?: React.ReactNode;
-  text: string;
 };
 
-export function Toast({ icon, text }: Props) {
+export function Toast({ children, icon }: Props) {
   return (
     <div className="flex items-center gap-2">
       {icon && icon}
-      <span className="text-lg">{text}</span>
+      <span className="text-lg">{children}</span>
     </div>
   );
 }
