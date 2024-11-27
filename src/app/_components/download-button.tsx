@@ -3,8 +3,8 @@
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
-import { LoadingSpinner } from "~/components/ui/loading-spinner";
-import { Toast } from "~/components/ui/toast";
+import { LoadingSpinner } from "~/app/_components/loading-spinner";
+import { Toast } from "~/app/_components/toast";
 import { useImagesStore } from "~/hooks/use-images-store";
 import type { Image as ImageType } from "~/types";
 import { pluralize } from "~/utils";

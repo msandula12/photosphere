@@ -7,9 +7,9 @@ import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
 import { extractRouterConfig } from "uploadthing/server";
 
+import { Toaster } from "~/app/_components/toaster";
 import { TopNav } from "~/app/_components/top-nav";
 import { ourFileRouter } from "~/app/api/uploadthing/core";
-import { Toaster } from "~/components/ui/toaster";
 
 export const metadata: Metadata = {
   title: "PhotoSphere",
